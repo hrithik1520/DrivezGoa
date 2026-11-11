@@ -30,15 +30,7 @@ function sweep() {
   if (reduce) return;
   animate(sheen, { opacity: [0, 1, 0], x: ["-70%", "70%"], duration: 1100, ease: "inOutQuad" });
 }
-function setTint(i) {
-  const f = finishes[i];
-  if (reduce) { hx.style.setProperty("--tint", f.tint); $("#hx-word").textContent = f.word; return; }
-  const w = $("#hx-word");
-  animate(w, { y: [0, -40], opacity: [1, 0], duration: 250, ease: "inQuad", onComplete: () => {
-    w.textContent = f.word; hx.style.setProperty("--tint", f.tint);
-    animate(w, { y: [40, 0], opacity: [0, 1], duration: 600, ease: "outExpo" });
-  } });
-}
+function setTint(i) { hx.style.setProperty("--tint", finishes[i].tint); }
 function swapCar(i) {
   setTint(i);
   if (reduce) return;
@@ -165,48 +157,9 @@ if (!reduce && window.gsap && window.ScrollTrigger) {
   tl.to(".fx-rings", { rotation: 80, svgOrigin: "400 300" }, 0)
     .to(".fx-speed", { scaleX: 1.6, svgOrigin: "400 300", opacity: 0 }, 0)
     .to(".hx-bg", { yPercent: 12, scale: 1.08 }, 0)
-    .to(".hx-word", { yPercent: -28, opacity: 0.25 }, 0)
     .to(".hx-stage", { y: () => -innerHeight * 0.12, scale: 0.94 }, 0)
     .to(".hx-info", { y: () => -innerHeight * 0.06, opacity: 0.35 }, 0);
 }
-
-// Fluid blobs (Anime.js): each blob's radii are tweened and redrawn as a smooth closed curve; groups drift and follow the pointer.
-(() => {
-  const blobs = [
-    { el: $(".fl-b1"), cx: 380, cy: 300, r: 230, n: 7, dur: 7000 },
-    { el: $(".fl-b2"), cx: 640, cy: 330, r: 200, n: 6, dur: 9000 },
-    { el: $(".fl-b3"), cx: 500, cy: 250, r: 260, n: 8, dur: 11000 }
-  ];
-  if (!blobs[0].el) return;
-  const draw = (b) => {
-    const p = b.rad.map((r, i) => { const a = (i / b.n) * Math.PI * 2; return [b.cx + Math.cos(a) * r, b.cy + Math.sin(a) * r]; });
-    const n = p.length; let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`;
-    for (let i = 0; i < n; i++) {
-      const p0 = p[(i - 1 + n) % n], p1 = p[i], p2 = p[(i + 1) % n], p3 = p[(i + 2) % n];
-      d += `C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
-    }
-    b.el.setAttribute("d", d + "Z");
-  };
-  const rnd = (b) => b.r * (0.68 + Math.random() * 0.64);
-  blobs.forEach((b) => { b.rad = Array.from({ length: b.n }, () => rnd(b)); draw(b); });
-  if (reduce) return;
-  const morph = (b) => {
-    const to = b.rad.map(() => rnd(b)), from = b.rad.slice(), o = { t: 0 };
-    animate(o, {
-      t: 1, duration: b.dur, ease: "inOutSine",
-      onUpdate: () => { b.rad = from.map((f, i) => f + (to[i] - f) * o.t); draw(b); },
-      onComplete: () => morph(b)
-    });
-  };
-  blobs.forEach(morph);
-  const groups = $$(".fl-g");
-  groups.forEach((g, i) => animate(g, { x: [-40, 40], y: [30, -30], duration: 8000 + i * 2500, ease: "inOutSine", loop: true, alternate: true }));
-  const svg = $(".hx-fluid");
-  if (fine) hx.addEventListener("pointermove", (e) => {
-    const r = hx.getBoundingClientRect();
-    animate(svg, { x: ((e.clientX - r.left) / r.width - 0.5) * 60, y: ((e.clientY - r.top) / r.height - 0.5) * 40, duration: 900, ease: "outQuart" });
-  });
-})();
 
 // Motion-graphics intro + ambient loops (GSAP). Touches only .hx-fx internals and h1 word spans.
 (() => {

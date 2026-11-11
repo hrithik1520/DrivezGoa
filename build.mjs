@@ -36,9 +36,7 @@ const sprite = `<svg width="0" height="0" style="position:absolute" aria-hidden=
 const stars = (n) => `<span class="stars" role="img" aria-label="${n} out of 5 stars">${[1, 2, 3, 4, 5].map((i) => icon("star", i > n ? "off" : "")).join("")}</span>`;
 
 /* image maps */
-const keyOf = { "mini-cooper-convertible-rental-goa": "mini", "audi-a3-convertible-rental-goa": "a3", "bmw-z4-rental-goa": "z4", "mercedes-c300-convertible-rental-goa": "c300", "ford-mustang-rental-goa": "mustang", "land-rover-defender-110-rental-goa": "defender", "bmw-x5-new-rental-goa": "x5", "bmw-5-series-m5-rental-goa": "m5" };
-const angleFiles = { mustang: [2, 3, 4], defender: [2, 3, 4], x5: [2, 3, 4], z4: [2, 3, 4], m5: [2, 3, 4], mini: [2, 3, 4], c300: [2, 3, 4], a3: [2, 3, 5] };
-const gallery = (c) => { const k = keyOf[c.slug]; return [c.image, ...(angleFiles[k] || []).map((n) => `images/cars/angles/${k}-${n}.jpg`)]; };
+const gallery = (c) => [c.image, ...(c.key === "a3" ? [2, 3, 5] : [2, 3, 4]).map((n) => `images/cars/angles/${c.key}-${n}.jpg`)];
 const carBySlug = Object.fromEntries(cars.map((c) => [c.slug, c]));
 const postImg = {
   "best-luxury-cars-to-rent-in-goa": "land-rover-defender-110-rental-goa",
@@ -137,8 +135,6 @@ write("index.html", layout({
   body: `
 <section class="hx" id="hx" aria-labelledby="hx-title">
 <div class="hx-bg" aria-hidden="true"></div>
-<svg class="hx-fluid" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><g class="fl-g" data-d="1"><path class="fl-b fl-b1"/></g><g class="fl-g" data-d="2"><path class="fl-b fl-b2"/></g><g class="fl-g" data-d="3"><path class="fl-b fl-b3"/></g></svg>
-<div class="hx-word" aria-hidden="true"><span id="hx-word">Ember</span></div>
 <div class="wrap hx-grid">
 <div class="hx-info">
 <span class="eyebrow">Luxury car rental · Goa</span>
@@ -154,7 +150,7 @@ write("index.html", layout({
 <div class="hx-stage" id="hx-stage">
 <a class="hx-badge" href="${WA_URL}" target="_blank" rel="noopener" aria-label="Book now on WhatsApp"><svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><defs><path id="hx-circ" d="M60 60m-43 0a43 43 0 1 1 86 0a43 43 0 1 1-86 0"/></defs><text><textPath href="#hx-circ" textLength="266" lengthAdjust="spacing">BOOK NOW • BOOK NOW • BOOK NOW • </textPath></text></svg><i aria-hidden="true">${icon("arrow")}</i></a>
 <svg class="hx-fx" viewBox="0 0 800 600" aria-hidden="true" focusable="false"><g class="fx-rings"><circle class="fx-r1" cx="400" cy="300" r="270"/><circle class="fx-r2" cx="400" cy="300" r="212"/><circle class="fx-ticks" cx="400" cy="300" r="244"/></g><g class="fx-orbit"><circle class="fx-dot" cx="670" cy="300" r="6"/></g><g class="fx-speed"><path d="M20 250h150M0 300h110M40 350h170"/><path d="M630 250h150M690 300h110M590 350h170"/></g></svg>
-<div class="hx-car" id="hx-car"><div class="hx-tilt" id="hx-tilt"><div class="hx-layer" data-l="0"><img id="hx-img" src="images/hero-mini.webp" alt="Slate blue Mini Cooper Convertible with the roof down, front three-quarter" width="1400" height="915" fetchpriority="high"><img class="hx-refl" src="images/hero-mini.webp" alt="" aria-hidden="true" width="1400" height="915"><i class="hx-sheen" aria-hidden="true"></i></div><div class="hx-layer" data-l="1"><img src="images/mini-side.webp" alt="Slate blue Mini Cooper Convertible, side profile with the roof up" width="1000" height="406"><img class="hx-refl" src="images/mini-side.webp" alt="" aria-hidden="true" width="1400" height="915"></div><div class="hx-layer" data-l="2"><img src="images/mini-top.webp" alt="Slate blue Mini Cooper Convertible seen from above with the roof open" width="900" height="636"><img class="hx-refl" src="images/mini-top.webp" alt="" aria-hidden="true" width="1400" height="915"></div></div></div>
+<div class="hx-car" id="hx-car"><div class="hx-tilt" id="hx-tilt"><div class="hx-layer" data-l="0"><img id="hx-img" src="images/hero-mini.webp" alt="Slate blue Mini Cooper Convertible with the roof down, front three-quarter" width="1400" height="915" fetchpriority="high"><i class="hx-sheen" aria-hidden="true"></i></div><div class="hx-layer" data-l="1"><img src="images/mini-side.webp" alt="Slate blue Mini Cooper Convertible, side profile with the roof up" width="1000" height="406"></div><div class="hx-layer" data-l="2"><img src="images/mini-top.webp" alt="Slate blue Mini Cooper Convertible seen from above with the roof open" width="900" height="636"></div></div></div>
 <div class="hx-ctrl" role="group" aria-label="Hero slideshow controls">
 <button type="button" class="hx-cb" id="hx-prev" aria-label="Previous slide">${icon("arrow")}</button>
 <div class="hx-dots" id="hx-dots"><button type="button" aria-label="Slide 1: front three-quarter" aria-current="true"></button><button type="button" aria-label="Slide 2: side profile"></button><button type="button" aria-label="Slide 3: top view"></button></div>
