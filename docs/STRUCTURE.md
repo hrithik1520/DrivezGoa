@@ -30,7 +30,7 @@ build.mjs  ───────┘
 
 One stylesheet, mobile-first, with breakpoints at 375, 768, 1024 and 1440 px.
 
-- **Tokens** are in `:root` at the top: `--ink` (page background), `--surface` (cards), `--text`, `--text-2`, `--gold` (the orange accent, `#F04400`), `--lime`, `--wa`, `--font-display`, `--font-body`, `--gutter`, `--max`, `--radius`, `--ease`.
+- **Tokens** are in `:root` at the top: `--ink` (page background), `--surface` (cards), `--text`, `--text-2`, `--gold` (the orange accent, `#F04400`), `--wa`, `--font-display`, `--font-body`, `--gutter`, `--max`, `--radius`, `--ease`.
 - **Sections** are marked with `/* Name */` comments in this order: Buttons, Nav, Hero, Marquee, Car cards, Filters, Page header, Features, Process, Cutout banner, Reviews, Locations, FAQ, CTA, Footer, WhatsApp floating, Car detail.
 - **Home hero** (class `.hx`) re-scopes the tokens for its light look, and its styles sit near the end of the file.
 - **Fonts:** Cormorant Garamond (display) and Manrope (body), loaded from Google Fonts in `layout()`.

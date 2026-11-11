@@ -78,7 +78,7 @@ ${ld}
 ${sprite}
 ${current === "article" ? '<div class="progress" aria-hidden="true"></div>' : ""}
 <header class="nav"><div class="wrap nav-in">
-<a class="brand" href="${p}index.html" aria-label="${BRAND} home"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#F04400"/><path d="M13 11h7.5a9 9 0 0 1 0 18H13V11Z" fill="none" stroke="#D0F030" stroke-width="1.6"/><path d="M13 20h12" stroke="#F04400" stroke-width="1.6"/></svg><span class="brand-text">Goa Luxe<small>Drives</small></span></a>
+<a class="brand" href="${p}index.html" aria-label="${BRAND} home"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#F04400"/><path d="M13 11h7.5a9 9 0 0 1 0 18H13V11Z" fill="none" stroke="#FFD91A" stroke-width="1.6"/><path d="M13 20h12" stroke="#F04400" stroke-width="1.6"/></svg><span class="brand-text">Goa Luxe<small>Drives</small></span></a>
 <nav class="nav-links" aria-label="Primary">${links}<a class="btn btn-gold" href="${WA_URL}" target="_blank" rel="noopener">Book on WhatsApp</a></nav>
 <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
 </div></header>
@@ -91,7 +91,7 @@ ${body}
 </main>
 <footer class="footer"><div class="wrap">
 <div class="foot-grid">
-<div><a class="brand" href="${p}index.html"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#F04400"/><path d="M13 11h7.5a9 9 0 0 1 0 18H13V11Z" fill="none" stroke="#D0F030" stroke-width="1.6"/></svg><span class="brand-text">Goa Luxe<small>Drives</small></span></a><p>Self-drive and chauffeur-driven luxury cars in Goa, delivered to the airport, your hotel or your villa.</p></div>
+<div><a class="brand" href="${p}index.html"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#F04400"/><path d="M13 11h7.5a9 9 0 0 1 0 18H13V11Z" fill="none" stroke="#FFD91A" stroke-width="1.6"/></svg><span class="brand-text">Goa Luxe<small>Drives</small></span></a><p>Self-drive and chauffeur-driven luxury cars in Goa, delivered to the airport, your hotel or your villa.</p></div>
 <div><h4>Explore</h4><ul>${NAV.map(([h, t]) => `<li><a href="${p}${h}">${t}</a></li>`).join("")}</ul></div>
 <div><h4>Fleet</h4><ul>${cars.slice(0, 5).map((c) => `<li><a href="${p}cars/${c.slug}.html">${esc(c.name)}</a></li>`).join("")}</ul></div>
 <div><h4>Talk to us</h4><ul><li><a href="tel:${PHONE_TEL}">${icon("phone", "")}&nbsp;${PHONE}</a></li><li><a href="mailto:${EMAIL}">${icon("mail", "")}&nbsp;${EMAIL}</a></li><li><a href="${WA_URL}" target="_blank" rel="noopener">${icon("wa", "")}&nbsp;WhatsApp us</a></li></ul></div>
@@ -161,10 +161,9 @@ write("index.html", layout({
 </div>
 <form class="hx-buy" id="hx-buy" aria-label="Plan your rental">
 <div class="hx-row"><span class="hx-lab" id="l-mode">Drive</span><div class="hx-opts" role="radiogroup" aria-labelledby="l-mode"><button type="button" role="radio" aria-checked="true" data-mode="0">Self-drive</button><button type="button" role="radio" aria-checked="false" data-mode="1">Chauffeur</button></div><p class="hx-note" id="hx-note">2-day minimum · fuel and tolls extra</p></div>
-<div class="hx-row"><span class="hx-lab" id="l-days">Days</span><div class="hx-opts" role="radiogroup" aria-labelledby="l-days"><button type="button" role="radio" aria-checked="true" data-days="2">2</button><button type="button" role="radio" aria-checked="false" data-days="3">3</button><button type="button" role="radio" aria-checked="false" data-days="5">5</button><button type="button" role="radio" aria-checked="false" data-days="7">7</button></div></div>
+<div class="hx-row"><span class="hx-lab" id="l-days">Days</span><div class="hx-opts" role="radiogroup" aria-labelledby="l-days"><button type="button" role="radio" aria-checked="true" data-days="1">1</button><button type="button" role="radio" aria-checked="false" data-days="2">2</button><button type="button" role="radio" aria-checked="false" data-days="3">3</button><button type="button" role="radio" aria-checked="false" data-days="5">5</button><button type="button" role="radio" aria-checked="false" data-days="7">7</button></div></div>
 <div class="hx-row"><span class="hx-lab">Reviews</span><p class="hx-rev"><span class="hx-stars" aria-hidden="true">★★★★★</span> <b id="hx-rating">4.7</b> <span>from <b id="hx-count">426</b> Google reviews</span></p></div>
-<div class="hx-row"><span class="hx-lab">Estimate</span><p class="hx-price" aria-live="polite"><span>₹</span><b id="hx-price">34,000</b></p><p class="hx-note" id="hx-sub">₹17,000 per day · Mini Cooper Convertible</p></div>
-<div class="hx-row"><span class="hx-lab" id="l-col">Backdrop</span><div class="hx-sw" role="radiogroup" aria-labelledby="l-col"><button type="button" role="radio" aria-checked="true" aria-label="Ember" data-c="0" style="--s:#F04400"></button><button type="button" role="radio" aria-checked="false" aria-label="Neon lime" data-c="1" style="--s:#D0F030"></button><button type="button" role="radio" aria-checked="false" aria-label="Sunshine" data-c="2" style="--s:#FFD91A"></button></div></div>
+<div class="hx-row"><span class="hx-lab">Estimate</span><p class="hx-price" aria-live="polite"><span>₹</span><b id="hx-price">17,000</b></p><p class="hx-note" id="hx-sub">₹17,000 per day · Mini Cooper Convertible</p></div>
 <a class="btn btn-gold btn-lg hx-book" id="hx-book" href="${WA_URL}" target="_blank" rel="noopener">${icon("wa")} Book on WhatsApp</a>
 <a class="link-arrow hx-fleet" href="cars/index.html">Explore the fleet ${icon("arrow")}</a>
 </form>

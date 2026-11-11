@@ -7,8 +7,7 @@ const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
 const hx = $("#hx"); if (!hx) throw 0;
 const car = $("#hx-car"), tilt = $("#hx-tilt"), sheen = $(".hx-sheen"), stage = $("#hx-stage");
 const NAME = "Mini Cooper Convertible", RATE = 17000, CHAUF = 3500;
-const finishes = [{ word: "Ember", tint: "240,68,0" }, { word: "Lime", tint: "208,240,48" }, { word: "Sun", tint: "255,217,26" }];
-const state = { mode: 0, days: 2, c: 0, shown: 0 };
+const state = { mode: 0, days: 1, c: 0, shown: 0 };
 const fmt = (n) => Math.round(n).toLocaleString("en-IN");
 const total = () => (RATE + (state.mode ? CHAUF : 0)) * state.days;
 const priceEl = $("#hx-price");
@@ -22,7 +21,7 @@ function roll() {
 }
 function sub() {
   $("#hx-sub").textContent = `₹${fmt(RATE + (state.mode ? CHAUF : 0))} per day${state.mode ? " incl. chauffeur (8 h)" : ""} · ${NAME}`;
-  $("#hx-note").textContent = state.mode ? "Chauffeur ₹3,500 per 8 hours · no 2-day minimum" : "2-day minimum · fuel and tolls extra";
+  $("#hx-note").textContent = state.mode ? "Chauffeur ₹3,500 per 8 hours · per-day rate shown first" : "Per-day rate shown first · self-drive from 2 days · fuel and tolls extra";
   const msg = `Hi, I want to book the ${NAME}.\nMode: ${state.mode ? "With chauffeur" : "Self-drive"}\nDays: ${state.days}\nEstimate: ₹${fmt(total())}`;
   $("#hx-book").href = `https://wa.me/919518710841?text=${encodeURIComponent(msg)}`;
 }
@@ -30,17 +29,9 @@ function sweep() {
   if (reduce) return;
   animate(sheen, { opacity: [0, 1, 0], x: ["-70%", "70%"], duration: 1100, ease: "inOutQuad" });
 }
-function setTint(i) { hx.style.setProperty("--tint", finishes[i].tint); }
-function swapCar(i) {
-  setTint(i);
-  if (reduce) return;
-  createTimeline().add(car, { y: [0, "-14%"], rotate: [0, -3], opacity: [1, 0], duration: 320, ease: "inQuad" })
-    .add(car, { y: ["14%", 0], rotate: [3, 0], opacity: [0, 1], duration: 700, ease: "outBack(1.3)", onBegin: sweep });
-}
 
 $$("[data-mode]").forEach((b) => b.addEventListener("click", () => { state.mode = +b.dataset.mode; select($$("[data-mode]"), b); sub(); roll(); }));
 $$("[data-days]").forEach((b) => b.addEventListener("click", () => { state.days = +b.dataset.days; select($$("[data-days]"), b); sub(); roll(); }));
-$$("[data-c]").forEach((b) => b.addEventListener("click", () => { if (+b.dataset.c === state.c) return; state.c = +b.dataset.c; select($$("[data-c]"), b); swapCar(state.c); }));
 sub(); state.shown = total(); priceEl.textContent = fmt(state.shown);
 
 /* intro */
@@ -209,6 +200,4 @@ if (!reduce && window.gsap && window.ScrollTrigger) {
     if (intro.progress() < 1) return;
     loops.forEach((l) => (e.isIntersecting ? l.play() : l.pause()));
   }).observe(hx);
-  $$("[data-c]").forEach((b) => b.addEventListener("click", () =>
-    gsap.fromTo([r1, r2], { scale: 0.94, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.9, ease: "elastic.out(1,.5)", overwrite: "auto" })));
 })();

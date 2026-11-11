@@ -12,7 +12,7 @@ const trig = (target, extra = {}) => onScroll({ target, enter: "bottom-=8% top",
 /* ---------- 1. Fluid blobs behind page headers and CTA bands ---------- */
 const PRESETS = [
   { cx: 260, cy: 300, r: 190, n: 7, dur: 7000, fill: "rgba(240, 68, 0,.5)" },
-  { cx: 720, cy: 280, r: 170, n: 6, dur: 9000, fill: "rgba(208, 240, 48,.16)" },
+  { cx: 720, cy: 280, r: 170, n: 6, dur: 9000, fill: "rgba(240, 68, 0,.16)" },
   { cx: 500, cy: 360, r: 210, n: 8, dur: 11000, fill: "rgba(240, 68, 0,.3)" },
 ];
 
